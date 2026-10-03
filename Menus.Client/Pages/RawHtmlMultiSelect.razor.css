@@ -1,0 +1,67 @@
+.multi-select-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+.back-link {
+    color: var(--blue-600);
+    font-size: 14px;
+    text-underline-offset: 3px;
+}
+
+h1 {
+    margin: 32px 0 12px;
+    color: var(--slate-900);
+    font-size: clamp(26px, 5vw, 36px);
+    letter-spacing: -.04em;
+}
+
+p {
+    margin: 0 0 24px;
+    color: var(--slate-500);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.select {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 300px;
+    gap: 1px;
+}
+
+.select__item {
+    min-height: 44px;
+    padding: 10px 6px;
+    border: 0;
+    border-radius: 3px;
+    color: var(--slate-700);
+    background: var(--slate-200);
+    font-family: 'Assistant', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color .1s ease;
+}
+
+.select__item:hover {
+    background: var(--blue-100);
+}
+
+.select__item--selected {
+    color: white;
+    background: var(--blue-600);
+}
+
+.select__item--selected:hover {
+    background: var(--blue-700);
+}
+
+.select__item:focus-visible,
+.back-link:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 3px solid var(--blue-500);
+    outline-offset: 3px;
+}

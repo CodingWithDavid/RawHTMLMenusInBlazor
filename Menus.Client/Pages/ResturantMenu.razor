@@ -1,0 +1,60 @@
+@page "/resturant-menu"
+
+<PageTitle>Resturant Menu | NexCorp</PageTitle>
+
+<main class="container">
+    <a class="back-link" href="">Back to navigation</a>
+    <h1>Resturant Menu</h1>
+
+    <div class="menu">
+        @foreach (var group in MenuGroups)
+        {
+            <section aria-label="@group.Name">
+                <h2 class="menu-group-heading">@group.Name</h2>
+                <div class="menu-group">
+                    @foreach (var item in group.Items)
+                    {
+                        <div class="menu-item">
+                            <img class="menu-item-image"
+                                 src="@($"images/food/{item.Image}")"
+                                 alt="@item.Alt"
+                                 width="125"
+                                 height="125" />
+                            <div class="menu-item-text">
+                                <h3 class="menu-item-heading">
+                                    <span class="menu-item-name">@item.Name</span>
+                                    <span class="menu-item-price">@item.Price.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</span>
+                                </h3>
+                                <p class="menu-item-description">
+                                    @item.Description
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        }
+    </div>
+</main>
+
+@code {
+    private sealed record MenuItem(string Name, decimal Price, string Image, string Alt, string Description);
+
+    private static readonly (string Name, MenuItem[] Items)[] MenuGroups =
+    [
+        ("Entrée",
+        [
+            new("Pesto Pasta", 16.90m, "pasta.jpg", "Bow-tie pasta with pesto, cherry tomatoes, and greens",
+                "Bow-tie pasta tossed with basil pesto, cherry tomatoes, and fresh greens."),
+            new("Garden Salad", 12.90m, "salad.jpg", "Colorful salad with avocado, chickpeas, and fresh vegetables",
+                "A colorful mix of leafy greens, avocado, chickpeas, and fresh vegetables with a creamy dressing.")
+        ]),
+        ("Dessert",
+        [
+            new("Chocolate Cake", 7.90m, "cake.jpg", "Chocolate cake topped with frosting and chocolate drizzle",
+                "Rich chocolate cake finished with chocolate frosting and a glossy chocolate drizzle."),
+            new("Cookie Sundae", 8.90m, "ice-cream.jpg", "Layered ice cream sundae with chocolate sauce and sandwich cookies",
+                "Layers of ice cream, chocolate sauce, and crumbled cookies, topped with a chocolate sandwich cookie.")
+        ])
+    ];
+}

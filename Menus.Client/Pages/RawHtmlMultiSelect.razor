@@ -1,0 +1,50 @@
+@page "/raw-html-multi-select"
+
+<PageTitle>Raw HTML Multi Select | NexCorp</PageTitle>
+
+<main class="multi-select-page">
+    <a class="back-link" href="">Back to navigation</a>
+    <h1>Raw HTML Multi Select</h1>
+    <p id="language-instructions">Select one or more languages. Select a language again to remove it.</p>
+
+    <select name="language" class="custom-select" multiple hidden aria-label="Languages">
+        @foreach (var language in Languages)
+        {
+            <option value="@language.Value" selected="@selectedValues.Contains(language.Value)">@language.Label</option>
+        }
+    </select>
+
+    <div class="select" role="group" aria-label="Languages" aria-describedby="language-instructions">
+        @foreach (var language in Languages)
+        {
+            <button type="button"
+                    class="select__item @(selectedValues.Contains(language.Value) ? "select__item--selected" : string.Empty)"
+                    aria-pressed="@(selectedValues.Contains(language.Value) ? "true" : "false")"
+                    @onclick="() => ToggleSelection(language.Value)">
+                @language.Label
+            </button>
+        }
+    </div>
+</main>
+
+@code {
+    private static readonly (string Value, string Label)[] Languages =
+    [
+        ("html", "HTML"),
+        ("css", "CSS"),
+        ("javascript", "JavaScript"),
+        ("python", "Python"),
+        ("sql", "SQL"),
+        ("kotlin", "Kotlin")
+    ];
+
+    private readonly HashSet<string> selectedValues = [];
+
+    private void ToggleSelection(string value)
+    {
+        if (!selectedValues.Add(value))
+        {
+            selectedValues.Remove(value);
+        }
+    }
+}
